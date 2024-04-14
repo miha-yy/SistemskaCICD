@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.ACCESS_TOKEN }}
 
       - name: create
-        run: docker build . -t ${{ secrets.USERNAME }}/sysa:${{ github.sha }}
+        run: docker build . -t ${{ secrets.USERNAME }}/sistemska:${{ github.sha }}
 
       - name: push
-        run: docker push ${{ secrets.USERNAME }}/sysa:${{ github.sha }}
+        run: docker push ${{ secrets.USERNAME }}/sistemska:${{ github.sha }}
