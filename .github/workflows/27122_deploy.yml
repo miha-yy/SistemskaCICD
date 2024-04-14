@@ -1,0 +1,29 @@
+name: deploy
+
+on:
+  workflow_run:
+    workflows: ["Test"]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    if: success()
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: create
+        run: docker build . -t ${{ secrets.USERNAME }}/sysa:${{ github.sha }}
+
+      - name: push
+        run: docker push ${{ secrets.USERNAME }}/sysa:${{ github.sha }}
