@@ -18,9 +18,9 @@ jobs:
 
       - name: install
         run: |
-          touch error.txt
-          python3 -m pip install --upgrade pip > pip_install_log.txt 2>&1 || echo "ERROR: pip install" > error.txt
-          pip install -r requirements.txt > requirements_install_log.txt 2>&1 || echo "ERROR: requirements install" > error.txt
+          touch napaka.txt
+          python3 -m pip install --upgrade pip > pip_install_log.txt 2>&1 || echo "ERROR: pip install" > napaka.txt
+          pip install -r requirements.txt > requirements_install_log.txt 2>&1 || echo "ERROR: requirements install" > napaka.txt
           pip install pytest
 
       - name: error
@@ -28,7 +28,7 @@ jobs:
         if: ${{ always() }}
         with:
           name: errors
-          path: error.txt
+          path: napaka.txt
           if-no-files-found: ignore
 
   run-tests:
@@ -43,9 +43,9 @@ jobs:
           name: errors
       - name: run
         run: |
-          if [ -s error.txt ]; then
+          if [ -s napaka.txt ]; then
             echo "ERROR: env config"
-            cat error.txt
+            cat napaka.txt
             exit 1
           else
             echo "run pytest"
