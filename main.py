@@ -14,8 +14,8 @@ def calculate_lucas(n):
     return a
 
 if __name__ == "__main__":
-    fibonacci_result = calculate_fibonacci(10)
-    lucas_result = calculate_lucas(10)
+    fibonacci_result = calculate_fibonacci(5)
+    lucas_result = calculate_lucas(5)
 
-    print("10th Fibonacci number:", fibonacci_result)
-    print("10th Lucas number:", lucas_result)
+    print("5th Fibonacci number:", fibonacci_result)
+    print("5th Lucas number:", lucas_result)
