@@ -1,28 +1,23 @@
 name: test
-
 on:
   push:
     branches:
       - master
-
 jobs:
   setup-environment:
     runs-on: self-hosted
     strategy:
       matrix:
         python-version: [3.7, 3.8]
-
     steps:
       - name: checkout
         uses: actions/checkout@v3
-
       - name: install
         run: |
           touch napaka.txt
           python3 -m pip install --upgrade pip > pip_install_log.txt 2>&1 || echo "ERROR: pip install" > napaka.txt
           pip install -r requirements.txt > requirements_install_log.txt 2>&1 || echo "ERROR: requirements install" > napaka.txt
           pip install pytest
-
       - name: error
         uses: actions/upload-artifact@v3
         if: ${{ always() }}
@@ -30,11 +25,9 @@ jobs:
           name: errors
           path: napaka.txt
           if-no-files-found: ignore
-
   run-tests:
     runs-on: self-hosted
     needs: setup-environment
-
     steps:
       - uses: actions/checkout@v3
       - name: checkout
