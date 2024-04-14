@@ -48,7 +48,7 @@ jobs:
             cat napaka.txt
             exit 1
           else
-            echo "Running pytest"
+            echo "run pytest"
           fi
       - name: testing
         run: pytest test_main.py
