@@ -19,7 +19,7 @@ jobs:
       - name: install
         run: |
           touch napaka.txt
-          python -m pip install --upgrade pip > pip_install_log.txt 2>&1 || echo "ERROR: pip install" > napaka.txt
+          python3 -m pip install --upgrade pip > pip_install_log.txt 2>&1 || echo "ERROR: pip install" > napaka.txt
           pip install -r requirements.txt > requirements_install_log.txt 2>&1 || echo "ERROR: requirements install" > napaka.txt
           pip install pytest
 
