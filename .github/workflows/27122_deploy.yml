@@ -10,20 +10,17 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-    if: success()
+    if: github.event.workflow_run.conclusion == 'success'
 
     steps:
-      - name: checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: login
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.ACCESS_TOKEN }}
+      - name: Set Environment Variables
+        run: |
+          echo "DOCKER_USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
+          echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> $GITHUB_ENV
+          echo "GITHUB_SHA=${{ github.event.workflow_run.head_sha }}" >> $GITHUB_ENV
 
-      - name: create
-        run: docker build . -t ${{ secrets.USERNAME }}/sistemska:${{ github.sha }}
-
-      - name: push
-        run: docker push ${{ secrets.USERNAME }}/sistemska:${{ github.sha }}
+      - name: Build and Push Docker Image
+        run: ./zapakiraj_27126.sh
